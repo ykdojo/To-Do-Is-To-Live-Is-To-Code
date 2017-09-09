@@ -5,7 +5,7 @@ class App extends Component {
   constructor() {
     super();
     this.state = {
-      items: [{content: 'TODO Item 1'}, {id: 1, content: 'TODO Item 2'}],
+      items: [{content: 'TODO Item 1', status: 'active'}, {id: 1, content: 'TODO Item 2', status: 'complete'}],
     };
 }
 
@@ -27,9 +27,11 @@ class App extends Component {
 
 class Item extends Component {
   render() {
+    const isChecked = this.props.item.status === 'complete' ? true : false;
+
     return (
-      <li>
-        <input type="checkbox"/> {this.props.item.content}
+      <li className={`todo-item ${this.props.item.status}`}>
+        <input type="checkbox" defaultChecked={isChecked}/> {this.props.item.content}
       </li>
     )
   }
