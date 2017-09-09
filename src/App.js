@@ -7,13 +7,17 @@ class App extends Component {
     this.state = {
       items: [{content: 'TODO Item 1', status: 'active'}, {id: 1, content: 'TODO Item 2', status: 'complete'}],
     };
-}
+  }
+
+  handleCheckboxChange() {
+    // alert('hello');
+  }
 
   render() {
     const itemsToShow = this.state.items.map((item) =>
     {
       return (
-        <Item item={item}/>
+        <Item item={item} onCheckboxChange={this.handleCheckboxChange}/>
         );
     });
 
@@ -31,7 +35,9 @@ class Item extends Component {
 
     return (
       <li className={`todo-item ${this.props.item.status}`}>
-        <input type="checkbox" defaultChecked={isChecked}/> {this.props.item.content}
+        <input type="checkbox" checked={isChecked}
+        onChange={this.props.onCheckboxChange}
+        /> {this.props.item.content}
       </li>
     )
   }
