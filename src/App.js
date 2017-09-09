@@ -29,8 +29,8 @@ class Item extends Component {
   render() {
     return (
       <li>
-        {this.props.item.content}
-          </li>
+        <input type="checkbox"/> {this.props.item.content}
+      </li>
     )
   }
 }
