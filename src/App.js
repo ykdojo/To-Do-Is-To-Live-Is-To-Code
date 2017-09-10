@@ -53,7 +53,7 @@ class App extends Component {
     const itemsToShow = this.state.items.map((item, index) =>
     {
       return (
-        <Item key={index} itemID={index} item={item} onCheckboxChange={this.handleCheckboxChange}/>
+        <Item itemID={index} item={item} onCheckboxChange={this.handleCheckboxChange}/>
       );
     });
 
