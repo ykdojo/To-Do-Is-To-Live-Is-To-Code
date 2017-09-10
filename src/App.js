@@ -91,11 +91,11 @@ class App extends Component {
     let allButtonClass = "btn-secondary";
     let activeButtonClass = "btn-secondary";
     let completeButtonClass = "btn-secondary";
-    if (mode == "all") {
+    if (mode === "all") {
       allButtonClass = "btn-primary";
-    } else if (mode == "active") {
+    } else if (mode === "active") {
       activeButtonClass = "btn-primary";
-    } else if (mode == "complete") {
+    } else if (mode === "complete") {
       completeButtonClass = "btn-primary";
     }
 
@@ -114,7 +114,7 @@ class App extends Component {
           onClick={() => this.handleSwitchModes('complete')}>Completed</button>
         </div>
         {
-          itemsToShow.length == 0 && this.state.mode !== 'complete' ? (
+          itemsToShow.length === 0 && this.state.mode !== 'complete' ? (
             <div className="alert alert-success" role="alert">
               <strong>Hooray!</strong> No TODO items left here.
             </div>
