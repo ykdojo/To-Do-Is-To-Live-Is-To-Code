@@ -2,7 +2,7 @@
 
 Hello BrainStation! Here is my solution to the to-do app coding challenge. I call it **Daily Focus TODO** because it's designed for listing things you need to get done each day.
 
-<a href="https://shrouded-journey-67805.herokuapp.com/" target="_blank">**Try it yourself by clicking here (the link goes to my Heroku app).**</a>
+[**Try it yourself by clicking here (the link goes to my Heroku app).**](https://shrouded-journey-67805.herokuapp.com/)
 
 
 ## What it does and what you can do with it
@@ -71,3 +71,7 @@ I designed this app so that each state variable is immutable. I decided to do th
 
 ### Clicking on checkbox vs. list item
 As I mentioned above, you can click on either a checkbox or a list item to complete an item. So, I have two separate handlers for this, but perhaps the click handler on a list item alone is enough, since when I click on the checkbox, both of these handlers are called. I kept both of these handlers just in case it is possible for a user to change the content of a checkbox without "clicking" it, but I'm not sure if it is possible.
+
+---
+
+Try the app yourself by clicking here (the link goes to my Heroku app).
