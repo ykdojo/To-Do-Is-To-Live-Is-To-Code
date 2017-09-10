@@ -4,10 +4,13 @@ import './App.css';
 class App extends Component {
   constructor() {
     super();
-    this.state = {
+    // NOTE: to-do items will be stored in |items| in the form of:
+    // [{content: 'To-Do Item 1', status: 'active'},
+    // {content: 'To-Do Item 2', status: 'complete'}, ...]
+    this.state =  {
       items: [],
       newContent: '',
-      mode: 'all'
+      mode: 'all' // 'all', 'active', or 'complete'. TODO: put put this in enum.
     };
     this.handleCheckboxChange = this.handleCheckboxChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -19,22 +22,19 @@ class App extends Component {
     const target = event.target;
     const newStatus = target.checked ? 'complete' : 'active';
     // Use Object.assign() instead of simply slice() to make a deep copy of
-    // |items|, which is an array of objects.
+    // |items|, which is an array of objects. (For maintaining immutability.)
     const items = this.state.items.map(item => Object.assign({}, item));
     items[itemID].status = newStatus;
-    this.setState({
-        items: items
-    })
+    this.setState({items: items});
   }
 
   // If an item is clicked, even if the user clicks on it without hitting the
   // checkbox, we should still toggle the state (slightly better UX this way).
   handleClickOnItem(itemID) {
     const items = this.state.items.map(item => Object.assign({}, item));
-    items[itemID].status = items[itemID].status === 'active' ? 'complete' : 'active';
-    this.setState({
-        items: items
-    })
+    items[itemID].status =
+      items[itemID].status === 'active' ? 'complete' : 'active';
+    this.setState({items: items});
   }
 
   handleNewTodoFormChange(event) {
@@ -43,7 +43,7 @@ class App extends Component {
 
   // This is the handler for creating a new to-do item.
   handleSubmit(event) {
-    const newContent = this.state.newContent
+    const newContent = this.state.newContent;
     const items = this.state.items.map(item => Object.assign({}, item));
     this.setState({
         items: items.concat([{content: newContent, status: 'active'}]),
@@ -52,7 +52,7 @@ class App extends Component {
     event.preventDefault();
   }
 
-  // This method clears (delets) all items marked as "complete".
+  // This method clears (deletes) all items marked as "complete".
   handleClearComplete(event) {
     const items = this.state.items.map(item => Object.assign({}, item));
     const clearedItems = items.filter(item => item.status === 'active');
@@ -60,25 +60,24 @@ class App extends Component {
     event.preventDefault();
   }
 
-  // This is a method for switching modes (All, In Progress and Complete).
+  // This is a method for switching modes ('all', 'active', and 'complete').
   handleSwitchModes(mode) {
     this.setState({mode: mode});
   }
 
   render() {
-    const mode = this.state.mode;
-
     // We need to use reduce() instead of filer() and map() here so we can
     // preserve each item's unique index (the array index).
     // Once we have a proper unique index, this part will be slihgtly simpler.
+    const mode = this.state.mode;
     const itemsToShow = this.state.items.reduce((filteredItems, item, index) =>
     {
       if (mode === 'all' || item.status === mode) {
         filteredItems.push(
-          <Item itemID={index} item={item}
+          <Item item={item}
             onCheckboxChange={(e) => this.handleCheckboxChange(index, e)}
             onClick={() => this.handleClickOnItem(index)}/>
-        )
+        );
       }
       return filteredItems;
     }, []);
@@ -92,11 +91,11 @@ class App extends Component {
     let allButtonClass = "btn-secondary";
     let activeButtonClass = "btn-secondary";
     let completeButtonClass = "btn-secondary";
-    if (this.state.mode == "all") {
+    if (mode == "all") {
       allButtonClass = "btn-primary";
-    } else if (this.state.mode == "active") {
+    } else if (mode == "active") {
       activeButtonClass = "btn-primary";
-    } else if (this.state.mode == "complete") {
+    } else if (mode == "complete") {
       completeButtonClass = "btn-primary";
     }
 
@@ -105,6 +104,7 @@ class App extends Component {
         <div className="text-center">
           <div className="app-title">Daily Focus TODO</div>
         </div>
+
         <div className="text-center">
           <button className={`btn btn-sm ${allButtonClass} todo-mode-button`}
             onClick={() => this.handleSwitchModes('all')}>All</button>
@@ -124,9 +124,12 @@ class App extends Component {
             </ul>
           )
         }
-        <NewTodoForm newContent={this.state.newContent} onChange={this.handleNewTodoFormChange} onSubmit={this.handleSubmit}/>
-        <form onSubmit={this.handleClearComplete} className="clear-complete-button text-right">
-          <input type="submit" value="Clear Complete" disabled={!completedItemsExist} className="btn btn-info btn-sm"/>
+        <NewTodoForm newContent={this.state.newContent}
+          onChange={this.handleNewTodoFormChange} onSubmit={this.handleSubmit}/>
+        <form onSubmit={this.handleClearComplete}
+          className="clear-complete-button text-right">
+          <input type="submit" value="Clear Complete"
+            disabled={!completedItemsExist} className="btn btn-info btn-sm"/>
         </form>
       </div>
     );
@@ -141,8 +144,8 @@ class Item extends Component {
 
     return (
       <li className={`todo-item todo-${this.props.item.status} list-group-item`}
-        onClick={this.props.onClick} itemID={this.props.itemID}>
-          <input type="checkbox" checked={isChecked} itemID={this.props.itemID}
+        onClick={this.props.onClick}>
+          <input type="checkbox" checked={isChecked}
             className="todo-checkbox" onChange={this.props.onCheckboxChange}/>
           {this.props.item.content}
       </li>
@@ -155,7 +158,9 @@ class NewTodoForm extends Component {
     return (
       <form onSubmit={this.props.onSubmit}>
         <label>
-        <input type="text" className="new-todo-form" value={this.props.newContent} onChange={this.props.onChange} placeholder="Enter your to-do item here"/>
+          <input type="text" className="new-todo-form"
+            value={this.props.newContent} onChange={this.props.onChange}
+            placeholder="Enter your to-do item here"/>
         </label>
         <input type="submit" value="Create" className="btn btn-primary btn-sm"/>
       </form>

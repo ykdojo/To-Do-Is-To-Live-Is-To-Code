@@ -10,6 +10,10 @@
   background-color: #eee;
 }
 
+.todo-item {
+  word-wrap: break-word;
+}
+
 .app-main {
   width: 300px;
   margin-left: auto;
