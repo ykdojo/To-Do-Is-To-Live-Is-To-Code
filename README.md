@@ -2,6 +2,9 @@
 
 Hello BrainStation! Here is my solution to the to-do app coding challenge. I call it **Daily Focus TODO** because it's designed for listing things you need to get done each day.
 
+<a href="https://shrouded-journey-67805.herokuapp.com/" target="_blank">**Try it yourself by clicking here (the link goes to my Heroku app).**</a>
+
+
 ## What it does and what you can do with it
 - Add a Todo item
 - List Todo items
