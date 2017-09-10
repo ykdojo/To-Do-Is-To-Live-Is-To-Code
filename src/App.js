@@ -5,8 +5,7 @@ class App extends Component {
   constructor() {
     super();
     this.state = {
-      items: [{content: 'TODO Item 1', status: 'active'},
-              {content: 'TODO Item 2', status: 'complete'}],
+      items: [],
       newContent: '',
       mode: 'all'
     };
@@ -115,9 +114,17 @@ class App extends Component {
           <button name="active"className={`btn btn-sm ${activeButtonClass} todo-mode-button`} onClick={this.handleSwitchModes}>In Progress</button>
           <button name="complete" value="Completed" className={`btn btn-sm ${completeButtonClass} todo-mode-button`} onClick={this.handleSwitchModes}>Completed</button>
         </div>
-        <ul className="list-group todo-list-group">
-          {itemsToShow}
-        </ul>
+        {
+          itemsToShow.length == 0 && this.state.mode !== 'complete' ? (
+            <div className="alert alert-success" role="alert">
+              <strong>Hooray!</strong> No TODO items left here.
+            </div>
+          ) : (
+            <ul className="list-group todo-list-group">
+              {itemsToShow}
+            </ul>
+          )
+        }
         <NewTodoForm newContent={this.state.newContent} onChange={this.handleNewTodoFormChange} onSubmit={this.handleSubmit}/>
         <form onSubmit={this.handleClearComplete} className="clear-complete-button text-right">
           <input type="submit" value="Clear Complete" disabled={!completedItemsExist} className="btn btn-info btn-sm"/>
