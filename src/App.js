@@ -73,18 +73,18 @@ class App extends Component {
 
   render() {
     const mode = this.state.mode;
-    const allItems = this.state.items;
-    const filteredItems = mode === 'all' ? allItems : allItems.filter((item) =>
-      item.status === mode
-    )
 
-    const itemsToShow = filteredItems.map((item, index) =>
+    const itemsToShow = this.state.items.map((item, index) =>
     {
-      return (
-        <Item itemID={index} item={item}
-          onCheckboxChange={this.handleCheckboxChange}
-          onClick={this.handleClickOnItem}/>
-      );
+      if (mode === 'all' || item.status === mode) {
+        return (
+          <Item itemID={index} item={item}
+            onCheckboxChange={this.handleCheckboxChange}
+            onClick={this.handleClickOnItem}/>
+        )
+      } else {
+        return null;
+      }
     });
 
     // If no completed items exist, the clear complete button should be disabled.
