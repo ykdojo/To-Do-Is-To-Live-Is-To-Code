@@ -1,6 +1,6 @@
 # Daily Focus TODO
 
-Hello BrainStation! Here is my solution to the to-do app coding challenge. I call it Daily Focus TODO because it's designed for listing things you need to get done each day.
+Hello BrainStation! Here is my solution to the to-do app coding challenge. I call it **Daily Focus TODO** because it's designed for listing things you need to get done each day.
 
 ## What it does and what you can do with it
 - Add a Todo item
