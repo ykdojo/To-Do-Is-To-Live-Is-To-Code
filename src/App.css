@@ -23,6 +23,7 @@
 .new-todo-form {
   width: 220px;
   margin-right: 10px;
+  margin-left: 5px;
 }
 
 .clear-complete-button {

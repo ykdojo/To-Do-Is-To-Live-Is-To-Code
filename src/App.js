@@ -10,6 +10,7 @@ class App extends Component {
       newContent: '',
     };
     this.handleCheckboxChange = this.handleCheckboxChange.bind(this);
+    this.handleClickOnItem = this.handleClickOnItem.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleNewTodoFormChange = this.handleNewTodoFormChange.bind(this);
     this.handleClearComplete = this.handleClearComplete.bind(this);
@@ -23,6 +24,18 @@ class App extends Component {
     // |items|, which is an array of objects.
     const items = this.state.items.map(item => Object.assign({}, item));
     items[itemID].status = newStatus;
+    this.setState({
+        items: items
+    })
+  }
+
+  // If an item is clicked, even if the user clicks on it without hitting the
+  // checkbox, we should still toggle the state (slightly better UX this way).
+  handleClickOnItem(event) {
+    const target = event.target;
+    const itemID = target.getAttribute('itemid');
+    const items = this.state.items.map(item => Object.assign({}, item));
+    items[itemID].status = items[itemID].status === 'active' ? 'complete' : 'active';
     this.setState({
         items: items
     })
@@ -53,7 +66,9 @@ class App extends Component {
     const itemsToShow = this.state.items.map((item, index) =>
     {
       return (
-        <Item itemID={index} item={item} onCheckboxChange={this.handleCheckboxChange}/>
+        <Item itemID={index} item={item}
+          onCheckboxChange={this.handleCheckboxChange}
+          onClick={this.handleClickOnItem}/>
       );
     });
 
@@ -84,9 +99,10 @@ class Item extends Component {
     const isChecked = isComplete ? true : false;
 
     return (
-      <li className={`todo-item todo-${this.props.item.status} list-group-item`}>
+      <li className={`todo-item todo-${this.props.item.status} list-group-item`}
+        onClick={this.props.onClick} itemID={this.props.itemID}>
           <input type="checkbox" checked={isChecked} itemID={this.props.itemID}
-          className="todo-checkbox" onChange={this.props.onCheckboxChange}/>
+            className="todo-checkbox" onChange={this.props.onCheckboxChange}/>
           {this.props.item.content}
       </li>
     )
