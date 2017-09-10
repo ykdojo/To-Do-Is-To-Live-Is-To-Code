@@ -30,6 +30,8 @@ You'll notice that, for example:
 - To-do items should be editable.
 - Add counts for in-progress and complete tasks for extra motivation.
 - Maybe add a unique ID for each item for more performance, if it becomes an issue in in the future (technical discussion below).
+- Extract different mode strings ('all', 'active', and 'complete') into either enum or class constants for more robust code.
+- Extract the mode switching module into a React class for more readability and simplicity of the code.
 
 ---
 ## Technical discussions
