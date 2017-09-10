@@ -10,17 +10,15 @@ class App extends Component {
       mode: 'all'
     };
     this.handleCheckboxChange = this.handleCheckboxChange.bind(this);
-    this.handleClickOnItem = this.handleClickOnItem.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleNewTodoFormChange = this.handleNewTodoFormChange.bind(this);
     this.handleClearComplete = this.handleClearComplete.bind(this);
     this.handleSwitchModes = this.handleSwitchModes.bind(this);
   }
 
-  handleCheckboxChange(event) {
+  handleCheckboxChange(itemID, event) {
     const target = event.target;
     const newStatus = target.checked ? 'complete' : 'active';
-    const itemID = target.getAttribute('itemid');
     // Use Object.assign() instead of simply slice() to make a deep copy of
     // |items|, which is an array of objects.
     const items = this.state.items.map(item => Object.assign({}, item));
@@ -32,9 +30,7 @@ class App extends Component {
 
   // If an item is clicked, even if the user clicks on it without hitting the
   // checkbox, we should still toggle the state (slightly better UX this way).
-  handleClickOnItem(event) {
-    const target = event.target;
-    const itemID = target.getAttribute('itemid');
+  handleClickOnItem(itemID) {
     const items = this.state.items.map(item => Object.assign({}, item));
     items[itemID].status = items[itemID].status === 'active' ? 'complete' : 'active';
     this.setState({
@@ -46,8 +42,8 @@ class App extends Component {
     this.setState({newContent: event.target.value});
   }
 
+  // This is the handler for creating a new to-do item.
   handleSubmit(event) {
-    const target = event.target;
     const newContent = this.state.newContent
     const items = this.state.items.map(item => Object.assign({}, item));
     this.setState({
@@ -66,9 +62,8 @@ class App extends Component {
   }
 
   // This is a method for switching modes (All, In Progress and Complete).
-  handleSwitchModes(event) {
-    const target = event.target;
-    this.setState({mode: event.target.name});
+  handleSwitchModes(mode) {
+    this.setState({mode: mode});
   }
 
   render() {
@@ -82,8 +77,8 @@ class App extends Component {
       if (mode === 'all' || item.status === mode) {
         filteredItems.push(
           <Item itemID={index} item={item}
-            onCheckboxChange={this.handleCheckboxChange}
-            onClick={this.handleClickOnItem}/>
+            onCheckboxChange={(e) => this.handleCheckboxChange(index, e)}
+            onClick={() => this.handleClickOnItem(index)}/>
         )
       }
       return filteredItems;
@@ -112,9 +107,12 @@ class App extends Component {
           <div className="app-title">Daily Focus TODO</div>
         </div>
         <div className="text-center">
-          <button name="all" className={`btn btn-sm ${allButtonClass} todo-mode-button`} onClick={this.handleSwitchModes}>All</button>
-          <button name="active"className={`btn btn-sm ${activeButtonClass} todo-mode-button`} onClick={this.handleSwitchModes}>In Progress</button>
-          <button name="complete" value="Completed" className={`btn btn-sm ${completeButtonClass} todo-mode-button`} onClick={this.handleSwitchModes}>Completed</button>
+          <button className={`btn btn-sm ${allButtonClass} todo-mode-button`}
+            onClick={() => this.handleSwitchModes('all')}>All</button>
+          <button className={`btn btn-sm ${activeButtonClass} todo-mode-button`}
+            onClick={() => this.handleSwitchModes('active')}>In Progress</button>
+          <button className={`btn btn-sm ${completeButtonClass} todo-mode-button`}
+          onClick={() => this.handleSwitchModes('complete')}>Completed</button>
         </div>
         {
           itemsToShow.length == 0 && this.state.mode !== 'complete' ? (
