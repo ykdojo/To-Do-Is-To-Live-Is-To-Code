@@ -1,6 +1,6 @@
-# YK's Solution to BrainStation Code Challenge
+# Daily Focus TODO
 
-Hello BrainStation! Here is my solution to the to-do app coding challenge.
+Hello BrainStation! Here is my solution to the to-do app coding challenge. I call it **Daily Focus TODO** because it's designed for listing things you need to get done each day.
 
 ## What it does and what you can do with it
 - Add a Todo item
@@ -8,6 +8,7 @@ Hello BrainStation! Here is my solution to the to-do app coding challenge.
 - Toggle Todo items as complete using a checkbox
 - Completed Todo items are greyed out with a strikethrough line through them
 - A "Clear Complete" button removes all Todos that are marked as completed (this button is disabled if no Todos are done)
+- A filter that will display All/Incomplete/Complete todos based on what option is selected.
 
 ---
 
