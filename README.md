@@ -20,14 +20,16 @@ You'll notice that, for example:
 - You don't have to click the checkbox to complete an item. You can click anywhere on the item (more technical discussion about this below).
 - On your laptop or desktop, once you enter a to-do item's content, you can just press Enter to add it to the list.
 - I designed this for both my phones (iPhone 5S and Pixel) and laptop in mind, so you'll notice that the width of the app might seem somewhat narrow on a computer. I should ideally make it responsive, but for now, changing the zoom setting on your browser (Cmd and + or Ctrl and +) should make it easier to use the app.
-[iPhone Screenshot](https://raw.githubusercontent.com/yksugi/To-Do-Is-To-Live-Is-To-Code/master/iphone_screenshot.PNG)
+
+<img src="https://raw.githubusercontent.com/yksugi/To-Do-Is-To-Live-Is-To-Code/master/iphone_screenshot.PNG" width="250">
+
 
 
 ---
 ## Ideas for future improvement
-- When the text is too long, it moves to the next line. It works just fine, but ideally it should be in the same line as the checkbox.
 - To-do items should be editable.
 - Add counts for in-progress and complete tasks for extra motivation.
+- Maybe add a unique ID for each item for more performance, if it becomes an issue in in the future (technical discussion below).
 
 ---
 ## Technical discussions
