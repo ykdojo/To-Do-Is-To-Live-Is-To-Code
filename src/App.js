@@ -70,7 +70,6 @@ class App extends Component {
   handleSwitchModes(event) {
     const target = event.target;
     this.setState({mode: event.target.name});
-    event.preventDefault();
   }
 
   render() {
@@ -108,6 +107,9 @@ class App extends Component {
 
     return (
       <div className="app-main">
+        <div className="text-center">
+          <div className="app-title">Daily Focus TODO</div>
+        </div>
         <div className="text-center">
           <button name="all" className={`btn btn-sm ${allButtonClass} todo-mode-button`} onClick={this.handleSwitchModes}>All</button>
           <button name="active"className={`btn btn-sm ${activeButtonClass} todo-mode-button`} onClick={this.handleSwitchModes}>In Progress</button>
