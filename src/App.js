@@ -12,6 +12,7 @@ class App extends Component {
     this.handleCheckboxChange = this.handleCheckboxChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleNewTodoFormChange = this.handleNewTodoFormChange.bind(this);
+    this.handleClearComplete = this.handleClearComplete.bind(this);
   }
 
   handleCheckboxChange(event) {
@@ -20,7 +21,7 @@ class App extends Component {
     const itemID = target.getAttribute('itemid');
     // Use Object.assign() instead of simply slice() to make a deep copy of
     // |items|, which is an array of objects.
-    const items = this.state.items.map(o => Object.assign({}, o));
+    const items = this.state.items.map(item => Object.assign({}, item));
     items[itemID].status = newStatus;
     this.setState({
         items: items
@@ -33,14 +34,19 @@ class App extends Component {
 
   handleSubmit(event) {
     const target = event.target;
-    const newContent = this.state.newContent;
-    // Use Object.assign() instead of simply slice() to make a deep copy of
-    // |items|, which is an array of objects.
-    const items = this.state.items.map(o => Object.assign({}, o));
+    const newContent = this.state.newContent
+    const items = this.state.items.map(item => Object.assign({}, item));
     this.setState({
         items: items.concat([{content: newContent, status: 'active'}]),
         newContent: '',
     });
+  }
+
+  // This method clears (delets) all items marked as "complete".
+  handleClearComplete(event) {
+    const items = this.state.items.map(item => Object.assign({}, item));
+    const clearedItems = items.filter(item => item.status === 'active');
+    this.setState({items: clearedItems});
   }
 
   render() {
@@ -57,6 +63,9 @@ class App extends Component {
           {itemsToShow}
         </ul>
         <NewTodoForm newContent={this.state.newContent} onChange={this.handleNewTodoFormChange} onSubmit={this.handleSubmit}/>
+        <form onSubmit={this.handleClearComplete}>
+          <input type="submit" value="Clear Complete" />
+        </form>
       </div>
     );
   }
@@ -77,10 +86,6 @@ class Item extends Component {
 }
 
 class NewTodoForm extends Component {
-  constructor() {
-    super();
-  }
-
   render() {
     return (
       <form onSubmit={this.props.onSubmit}>
