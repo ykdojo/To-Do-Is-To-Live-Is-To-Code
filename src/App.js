@@ -8,12 +8,14 @@ class App extends Component {
       items: [{content: 'TODO Item 1', status: 'active'},
               {content: 'TODO Item 2', status: 'complete'}],
       newContent: '',
+      mode: 'all'
     };
     this.handleCheckboxChange = this.handleCheckboxChange.bind(this);
     this.handleClickOnItem = this.handleClickOnItem.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleNewTodoFormChange = this.handleNewTodoFormChange.bind(this);
     this.handleClearComplete = this.handleClearComplete.bind(this);
+    this.handleSwitchModes = this.handleSwitchModes.bind(this);
   }
 
   handleCheckboxChange(event) {
@@ -53,6 +55,7 @@ class App extends Component {
         items: items.concat([{content: newContent, status: 'active'}]),
         newContent: '',
     });
+    event.preventDefault();
   }
 
   // This method clears (delets) all items marked as "complete".
@@ -60,10 +63,24 @@ class App extends Component {
     const items = this.state.items.map(item => Object.assign({}, item));
     const clearedItems = items.filter(item => item.status === 'active');
     this.setState({items: clearedItems});
+    event.preventDefault();
+  }
+
+  // This is a method for switching modes (All, In Progress and Complete).
+  handleSwitchModes(event) {
+    const target = event.target;
+    this.setState({mode: event.target.name});
+    event.preventDefault();
   }
 
   render() {
-    const itemsToShow = this.state.items.map((item, index) =>
+    const mode = this.state.mode;
+    const allItems = this.state.items;
+    const filteredItems = mode === 'all' ? allItems : allItems.filter((item) =>
+      item.status === mode
+    )
+
+    const itemsToShow = filteredItems.map((item, index) =>
     {
       return (
         <Item itemID={index} item={item}
@@ -73,13 +90,29 @@ class App extends Component {
     });
 
     // If no completed items exist, the clear complete button should be disabled.
-    const completedItemsExist = this.state.items.some((item) =>
-    {
+    const completedItemsExist = this.state.items.some((item) => {
       return item.status === 'complete';
-    })
+    });
+
+    // Set class names for Twitter Bootstrap.
+    let allButtonClass = "btn-secondary";
+    let activeButtonClass = "btn-secondary";
+    let completeButtonClass = "btn-secondary";
+    if (this.state.mode == "all") {
+      allButtonClass = "btn-primary";
+    } else if (this.state.mode == "active") {
+      activeButtonClass = "btn-primary";
+    } else if (this.state.mode == "complete") {
+      completeButtonClass = "btn-primary";
+    }
 
     return (
       <div className="app-main">
+        <div className="text-center">
+          <button name="all" className={`btn btn-sm ${allButtonClass} todo-mode-button`} onClick={this.handleSwitchModes}>All</button>
+          <button name="active"className={`btn btn-sm ${activeButtonClass} todo-mode-button`} onClick={this.handleSwitchModes}>In Progress</button>
+          <button name="complete" value="Completed" className={`btn btn-sm ${completeButtonClass} todo-mode-button`} onClick={this.handleSwitchModes}>Completed</button>
+        </div>
         <ul className="list-group todo-list-group">
           {itemsToShow}
         </ul>

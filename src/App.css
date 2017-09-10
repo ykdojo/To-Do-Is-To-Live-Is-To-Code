@@ -29,3 +29,9 @@
 .clear-complete-button {
   margin-top: 10px;
 }
+
+.todo-mode-button {
+  margin-left: 1px;
+  margin-right: 1px;
+  margin-bottom: 10px;
+}
