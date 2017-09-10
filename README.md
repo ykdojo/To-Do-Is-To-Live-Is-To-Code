@@ -74,4 +74,4 @@ As I mentioned above, you can click on either a checkbox or a list item to compl
 
 ---
 
-Try the app yourself by clicking here (the link goes to my Heroku app).
+[**Try it yourself by clicking here (the link goes to my Heroku app).**](https://shrouded-journey-67805.herokuapp.com/)
