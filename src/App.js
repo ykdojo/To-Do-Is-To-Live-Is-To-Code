@@ -65,7 +65,7 @@ class App extends Component {
 
     return (
       <div className="app-main">
-        <ul>
+        <ul className="list-group">
           {itemsToShow}
         </ul>
         <NewTodoForm newContent={this.state.newContent} onChange={this.handleNewTodoFormChange} onSubmit={this.handleSubmit}/>
@@ -79,10 +79,12 @@ class App extends Component {
 
 class Item extends Component {
   render() {
-    const isChecked = this.props.item.status === 'complete' ? true : false;
+    const isComplete = this.props.item.status === 'complete'
+    // If the item has already been completed, the checkbox should be checked.
+    const isChecked = isComplete ? true : false;
 
     return (
-      <li className={`todo-item todo-${this.props.item.status}`}>
+      <li className={`todo-item todo-${this.props.item.status} list-group-item`}>
         <input type="checkbox" checked={isChecked} itemID={this.props.itemID}
         onChange={this.props.onCheckboxChange}/>
         {this.props.item.content}

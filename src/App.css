@@ -1,6 +1,7 @@
 .todo-item.todo-complete {
-  background-color: #e0e0e0;
   text-decoration: line-through;
+  color: #777;
+  background-color: #eee;
 }
 
 .app-main {
