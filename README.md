@@ -33,6 +33,7 @@ You'll notice that, for example:
 - Maybe add an undo/redo function.
 - Extract different mode strings ('all', 'active', and 'complete') into either enum or class constants for more robust code.
 - Extract the mode switching module into a React class for more readability and simplicity of the code.
+- Keep the state of the app when the user closes the tab (maybe just store it in a cookie so we don't have to implement backend code).
 
 ---
 ## Technical discussions
