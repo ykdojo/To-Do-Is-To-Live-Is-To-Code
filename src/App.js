@@ -57,6 +57,12 @@ class App extends Component {
       );
     });
 
+    // If no completed items exist, the clear complete button should be disabled.
+    const completedItemsExist = this.state.items.some((item) =>
+    {
+      return item.status === 'complete';
+    })
+
     return (
       <div>
         <ul>
@@ -64,7 +70,7 @@ class App extends Component {
         </ul>
         <NewTodoForm newContent={this.state.newContent} onChange={this.handleNewTodoFormChange} onSubmit={this.handleSubmit}/>
         <form onSubmit={this.handleClearComplete}>
-          <input type="submit" value="Clear Complete" />
+          <input type="submit" value="Clear Complete" disabled={!completedItemsExist}/>
         </form>
       </div>
     );
