@@ -74,18 +74,20 @@ class App extends Component {
   render() {
     const mode = this.state.mode;
 
-    const itemsToShow = this.state.items.map((item, index) =>
+    // We need to use reduce() instead of filer() and map() here so we can
+    // preserve each item's unique index (the array index).
+    // Once we have a proper unique index, this part will be slihgtly simpler.
+    const itemsToShow = this.state.items.reduce((filteredItems, item, index) =>
     {
       if (mode === 'all' || item.status === mode) {
-        return (
+        filteredItems.push(
           <Item itemID={index} item={item}
             onCheckboxChange={this.handleCheckboxChange}
             onClick={this.handleClickOnItem}/>
         )
-      } else {
-        return null;
       }
-    });
+      return filteredItems;
+    }, []);
 
     // If no completed items exist, the clear complete button should be disabled.
     const completedItemsExist = this.state.items.some((item) => {
