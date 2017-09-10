@@ -65,12 +65,12 @@ class App extends Component {
 
     return (
       <div className="app-main">
-        <ul className="list-group">
+        <ul className="list-group todo-list-group">
           {itemsToShow}
         </ul>
         <NewTodoForm newContent={this.state.newContent} onChange={this.handleNewTodoFormChange} onSubmit={this.handleSubmit}/>
-        <form onSubmit={this.handleClearComplete}>
-          <input type="submit" value="Clear Complete" disabled={!completedItemsExist}/>
+        <form onSubmit={this.handleClearComplete} className="clear-complete-button text-right">
+          <input type="submit" value="Clear Complete" disabled={!completedItemsExist} className="btn btn-info btn-sm"/>
         </form>
       </div>
     );
@@ -85,9 +85,9 @@ class Item extends Component {
 
     return (
       <li className={`todo-item todo-${this.props.item.status} list-group-item`}>
-        <input type="checkbox" checked={isChecked} itemID={this.props.itemID}
-        onChange={this.props.onCheckboxChange}/>
-        {this.props.item.content}
+          <input type="checkbox" checked={isChecked} itemID={this.props.itemID}
+          className="todo-checkbox" onChange={this.props.onCheckboxChange}/>
+          {this.props.item.content}
       </li>
     )
   }
@@ -98,10 +98,9 @@ class NewTodoForm extends Component {
     return (
       <form onSubmit={this.props.onSubmit}>
         <label>
-        New TODO:
-        <input type="text" value={this.props.newContent} onChange={this.props.onChange}/>
+        <input type="text" className="new-todo-form" value={this.props.newContent} onChange={this.props.onChange} placeholder="Enter your to-do item here"/>
         </label>
-        <input type="submit" value="Create" />
+        <input type="submit" value="Create" className="btn btn-primary btn-sm"/>
       </form>
     )
   }

@@ -11,3 +11,20 @@
   margin-top: 40px;
   margin-bottom: 40px;
 }
+
+.todo-checkbox {
+  margin-right: 10px;
+}
+
+.todo-list-group {
+  margin-bottom: 15px;
+}
+
+.new-todo-form {
+  width: 220px;
+  margin-right: 10px;
+}
+
+.clear-complete-button {
+  margin-top: 10px;
+}
