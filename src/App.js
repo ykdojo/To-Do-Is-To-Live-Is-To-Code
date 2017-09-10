@@ -64,7 +64,7 @@ class App extends Component {
     })
 
     return (
-      <div>
+      <div className="app-main">
         <ul>
           {itemsToShow}
         </ul>
@@ -82,7 +82,7 @@ class Item extends Component {
     const isChecked = this.props.item.status === 'complete' ? true : false;
 
     return (
-      <li className={`todo-item ${this.props.item.status}`}>
+      <li className={`todo-item todo-${this.props.item.status}`}>
         <input type="checkbox" checked={isChecked} itemID={this.props.itemID}
         onChange={this.props.onCheckboxChange}/>
         {this.props.item.content}

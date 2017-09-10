@@ -1,4 +1,12 @@
-.todo-item.complete {
+.todo-item.todo-complete {
   background-color: #e0e0e0;
   text-decoration: line-through;
+}
+
+.app-main {
+  width: 300px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 40px;
+  margin-bottom: 40px;
 }
