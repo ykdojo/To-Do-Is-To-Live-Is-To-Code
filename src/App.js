@@ -13,7 +13,6 @@ class App extends Component {
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleNewTodoFormChange = this.handleNewTodoFormChange.bind(this);
     this.handleClearComplete = this.handleClearComplete.bind(this);
-    this.handleSwitchModes = this.handleSwitchModes.bind(this);
   }
 
   handleCheckboxChange(itemID, event) {
